@@ -1,0 +1,155 @@
+HBASE-BULK LOADING - USE CASE
+====================================
+FROM HDFS DATA LOADING SIDE
+----------------------------
+root@ubuntu:/home# nano bulkData
+root@ubuntu:/home# 
+root@ubuntu:/home# hadoop fs -mkdir /InputDir
+root@ubuntu:/home# 
+root@ubuntu:/home# hadoop fs -put bulkData /InputDir
+root@ubuntu:/home# 
+root@ubuntu:/home# hadoop fs -cat /InputDir/bulkData
+100	RAM	12000	1990
+101	RAJ	14000	2000
+102	TAJ	16000	2001
+103	ADI	18000	2001
+104	JAJ	20000	2002
+105	YOY	22000	2003
+106	SID	24000	2005
+107	SAI	25000	2004
+108	SRI	26000	2003
+109	JAI	28000	2007
+110	PAI	30000	2008
+root@ubuntu:/home# 
+
+-------------------------------------------------------------------------------
+BULK LOADING COMMAND:
+--------------------------------------------------------------------------------
+root@ubuntu:/home# hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,name,sal,year bulktab hdfs://localhost:8020/InputDir/bulkData
+----------------------------------------------------------------------------------
+TRACE:
+---------------------------------------------------------------------------------
+root@ubuntu:/home# hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,name,sal,year bulktab hdfs://localhost:8020/InputDir/bulkData
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.5-cdh3u5--1, built on 10/06/2012 01:52 GMT
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:host.name=ubuntu
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_26
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.home=/usr/java/jdk1.6.0_26/jre
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/usr/lib/hbase/bin/../conf:/usr/java/jdk1.6.0_26/lib/tools.jar:/usr/lib/hbase/bin/..:/usr/lib/hbase/bin/../hbase-0.90.6-cdh3u5.jar:/usr/lib/hbase/bin/../hbase-0.90.6-cdh3u5-tests.jar:/usr/lib/hbase/bin/../hbase.jar:/usr/lib/hbase/bin/../lib/activation-1.1.jar:/usr/lib/hbase/bin/../lib/asm-3.2.jar:/usr/lib/hbase/bin/../lib/avro-1.5.4.jar:/usr/lib/hbase/bin/../lib/avro-ipc-1.5.4.jar:/usr/lib/hbase/bin/../lib/commons-cli-1.2.jar:/usr/lib/hbase/bin/../lib/commons-codec-1.4.jar:/usr/lib/hbase/bin/../lib/commons-el-1.0.jar:/usr/lib/hbase/bin/../lib/commons-httpclient-3.1.jar:/usr/lib/hbase/bin/../lib/commons-io-2.1.jar:/usr/lib/hbase/bin/../lib/commons-lang-2.5.jar:/usr/lib/hbase/bin/../lib/commons-logging-1.1.1.jar:/usr/lib/hbase/bin/../lib/commons-net-1.4.1.jar:/usr/lib/hbase/bin/../lib/core-3.1.1.jar:/usr/lib/hbase/bin/../lib/guava-r06.jar:/usr/lib/hbase/bin/../lib/guava-r09-jarjar.jar:/usr/lib/hbase/bin/../lib/hadoop-core.jar:/usr/lib/hbase/bin/../lib/hbase-0.90.2.jar:/usr/lib/hbase/bin/../lib/jackson-core-asl-1.8.8.jar:/usr/lib/hbase/bin/../lib/jackson-jaxrs-1.8.8.jar:/usr/lib/hbase/bin/../lib/jackson-mapper-asl-1.8.8.jar:/usr/lib/hbase/bin/../lib/jackson-xc-1.8.8.jar:/usr/lib/hbase/bin/../lib/jamon-runtime-2.3.1.jar:/usr/lib/hbase/bin/../lib/jasper-compiler-5.5.23.jar:/usr/lib/hbase/bin/../lib/jasper-runtime-5.5.23.jar:/usr/lib/hbase/bin/../lib/jaxb-api-2.1.jar:/usr/lib/hbase/bin/../lib/jaxb-impl-2.2.3-1.jar:/usr/lib/hbase/bin/../lib/jersey-core-1.8.jar:/usr/lib/hbase/bin/../lib/jersey-json-1.8.jar:/usr/lib/hbase/bin/../lib/jersey-server-1.8.jar:/usr/lib/hbase/bin/../lib/jettison-1.1.jar:/usr/lib/hbase/bin/../lib/jetty-6.1.26.jar:/usr/lib/hbase/bin/../lib/jetty-util-6.1.26.jar:/usr/lib/hbase/bin/../lib/jruby-complete-1.6.0.jar:/usr/lib/hbase/bin/../lib/jsp-2.1-6.1.14.jar:/usr/lib/hbase/bin/../lib/jsp-api-2.1-6.1.14.jar:/usr/lib/hbase/bin/../lib/jsp-api-2.1.jar:/usr/lib/hbase/bin/../lib/jsr311-api-1.1.1.jar:/usr/lib/hbase/bin/../lib/log4j-1.2.16.jar:/usr/lib/hbase/bin/../lib/netty-3.2.4.Final.jar:/usr/lib/hbase/bin/../lib/protobuf-java-2.3.0.jar:/usr/lib/hbase/bin/../lib/servlet-api-2.5-6.1.14.jar:/usr/lib/hbase/bin/../lib/servlet-api-2.5.jar:/usr/lib/hbase/bin/../lib/slf4j-api-1.5.8.jar:/usr/lib/hbase/bin/../lib/slf4j-log4j12-1.5.8.jar:/usr/lib/hbase/bin/../lib/snappy-java-1.0.3.2.jar:/usr/lib/hbase/bin/../lib/stax-api-1.0.1.jar:/usr/lib/hbase/bin/../lib/thrift-0.2.0.jar:/usr/lib/hbase/bin/../lib/velocity-1.5.jar:/usr/lib/hbase/bin/../lib/xmlenc-0.52.jar:/usr/lib/hbase/bin/../lib/zookeeper.jar:/etc/zookeeper:/etc/hadoop-0.20/conf:/usr/lib/hadoop-0.20/hadoop-tools-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/hadoop-core-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/hadoop-ant-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/hadoop-0.20.2-cdh3u5-core.jar:/usr/lib/hadoop-0.20/hadoop-test.jar:/usr/lib/hadoop-0.20/hadoop-test-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/hadoop-ant.jar:/usr/lib/hadoop-0.20/hadoop-tools.jar:/usr/lib/hadoop-0.20/hadoop-0.20.2-cdh3u5-ant.jar:/usr/lib/hadoop-0.20/hadoop-0.20.2-cdh3u5-tools.jar:/usr/lib/hadoop-0.20/hadoop-examples-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/hadoop-0.20.2-cdh3u5-test.jar:/usr/lib/hadoop-0.20/hadoop-core.jar:/usr/lib/hadoop-0.20/hadoop-0.20.2-cdh3u5-examples.jar:/usr/lib/hadoop-0.20/hadoop-examples.jar:/usr/lib/hadoop-0.20/lib/hsqldb-1.8.0.10.jar:/usr/lib/hadoop-0.20/lib/jetty-util-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/jsch-0.1.42.jar:/usr/lib/hadoop-0.20/lib/jetty-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/jets3t-0.6.1.jar:/usr/lib/hadoop-0.20/lib/aspectjrt-1.6.5.jar:/usr/lib/hadoop-0.20/lib/core-3.1.1.jar:/usr/lib/hadoop-0.20/lib/commons-el-1.0.jar:/usr/lib/hadoop-0.20/lib/xmlenc-0.52.jar:/usr/lib/hadoop-0.20/lib/commons-daemon-1.0.1.jar:/usr/lib/hadoop-0.20/lib/guava-r09-jarjar.jar:/usr/lib/hadoop-0.20/lib/commons-net-3.1.jar:/usr/lib/hadoop-0.20/lib/servlet-api-2.5-6.1.14.jar:/usr/lib/hadoop-0.20/lib/hadoop-core-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/lib/pdfbox-app-1.8.10.jar:/usr/lib/hadoop-0.20/lib/aspectjtools-1.6.5.jar:/usr/lib/hadoop-0.20/lib/jersey-server-1.8.jar:/usr/lib/hadoop-0.20/lib/commons-cli-1.2.jar:/usr/lib/hadoop-0.20/lib/slf4j-api-1.4.3.jar:/usr/lib/hadoop-0.20/lib/commons-lang-2.4.jar:/usr/lib/hadoop-0.20/lib/commons-io-2.1.jar:/usr/lib/hadoop-0.20/lib/jetty-servlet-tester-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/servlet-api-2.5-20081211.jar:/usr/lib/hadoop-0.20/lib/jackson-mapper-asl-1.5.2.jar:/usr/lib/hadoop-0.20/lib/commons-httpclient-3.1.jar:/usr/lib/hadoop-0.20/lib/asm-3.2.jar:/usr/lib/hadoop-0.20/lib/mockito-all-1.8.2.jar:/usr/lib/hadoop-0.20/lib/commons-codec-1.4.jar:/usr/lib/hadoop-0.20/lib/fontbox-1.6.0-for-pdfbox.jar:/usr/lib/hadoop-0.20/lib/junit-4.5.jar:/usr/lib/hadoop-0.20/lib/commons-logging-1.0.4.jar:/usr/lib/hadoop-0.20/lib/kfs-0.2.2.jar:/usr/lib/hadoop-0.20/lib/slf4j-log4j12-1.4.3.jar:/usr/lib/hadoop-0.20/lib/jersey-json-1.8.jar:/usr/lib/hadoop-0.20/lib/log4j-1.2.15.jar:/usr/lib/hadoop-0.20/lib/commons-logging-api-1.0.4.jar:/usr/lib/hadoop-0.20/lib/jersey-core-1.8.jar:/usr/lib/hadoop-0.20/lib/jasper-runtime-5.5.12.jar:/usr/lib/hadoop-0.20/lib/ant-contrib-1.0b3.jar:/usr/lib/hadoop-0.20/lib/jackson-core-asl-1.5.2.jar:/usr/lib/hadoop-0.20/lib/jasper-compiler-5.5.12.jar:/usr/lib/hadoop-0.20/lib/oro-2.0.8.jar:/usr/lib/hadoop-0.20/lib/hadoop-fairscheduler-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/lib/org-apache-commons-logging.jar:/usr/lib/zookeeper/zookeeper.jar:/usr/lib/zookeeper/zookeeper-3.3.5-cdh3u5.jar:/usr/lib/zookeeper/lib/jline-0.9.94.jar:/usr/lib/zookeeper/lib/log4j-1.2.15.jar::/usr/lib/hadoop-0.20/conf:/usr/lib/hadoop-0.20/hadoop-core-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/lib/ant-contrib-1.0b3.jar:/usr/lib/hadoop-0.20/lib/asm-3.2.jar:/usr/lib/hadoop-0.20/lib/aspectjrt-1.6.5.jar:/usr/lib/hadoop-0.20/lib/aspectjtools-1.6.5.jar:/usr/lib/hadoop-0.20/lib/commons-cli-1.2.jar:/usr/lib/hadoop-0.20/lib/commons-codec-1.4.jar:/usr/lib/hadoop-0.20/lib/commons-daemon-1.0.1.jar:/usr/lib/hadoop-0.20/lib/commons-el-1.0.jar:/usr/lib/hadoop-0.20/lib/commons-httpclient-3.1.jar:/usr/lib/hadoop-0.20/lib/commons-io-2.1.jar:/usr/lib/hadoop-0.20/lib/commons-lang-2.4.jar:/usr/lib/hadoop-0.20/lib/commons-logging-1.0.4.jar:/usr/lib/hadoop-0.20/lib/commons-logging-api-1.0.4.jar:/usr/lib/hadoop-0.20/lib/commons-net-3.1.jar:/usr/lib/hadoop-0.20/lib/core-3.1.1.jar:/usr/lib/hadoop-0.20/lib/fontbox-1.6.0-for-pdfbox.jar:/usr/lib/hadoop-0.20/lib/guava-r09-jarjar.jar:/usr/lib/hadoop-0.20/lib/hadoop-core-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/lib/hadoop-fairscheduler-0.20.2-cdh3u5.jar:/usr/lib/hadoop-0.20/lib/hsqldb-1.8.0.10.jar:/usr/lib/hadoop-0.20/lib/jackson-core-asl-1.5.2.jar:/usr/lib/hadoop-0.20/lib/jackson-mapper-asl-1.5.2.jar:/usr/lib/hadoop-0.20/lib/jasper-compiler-5.5.12.jar:/usr/lib/hadoop-0.20/lib/jasper-runtime-5.5.12.jar:/usr/lib/hadoop-0.20/lib/jersey-core-1.8.jar:/usr/lib/hadoop-0.20/lib/jersey-json-1.8.jar:/usr/lib/hadoop-0.20/lib/jersey-server-1.8.jar:/usr/lib/hadoop-0.20/lib/jets3t-0.6.1.jar:/usr/lib/hadoop-0.20/lib/jetty-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/jetty-servlet-tester-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/jetty-util-6.1.26.cloudera.1.jar:/usr/lib/hadoop-0.20/lib/jsch-0.1.42.jar:/usr/lib/hadoop-0.20/lib/junit-4.5.jar:/usr/lib/hadoop-0.20/lib/kfs-0.2.2.jar:/usr/lib/hadoop-0.20/lib/log4j-1.2.15.jar:/usr/lib/hadoop-0.20/lib/mockito-all-1.8.2.jar:/usr/lib/hadoop-0.20/lib/org-apache-commons-logging.jar:/usr/lib/hadoop-0.20/lib/oro-2.0.8.jar:/usr/lib/hadoop-0.20/lib/pdfbox-app-1.8.10.jar:/usr/lib/hadoop-0.20/lib/servlet-api-2.5-20081211.jar:/usr/lib/hadoop-0.20/lib/servlet-api-2.5-6.1.14.jar:/usr/lib/hadoop-0.20/lib/slf4j-api-1.4.3.jar:/usr/lib/hadoop-0.20/lib/slf4j-log4j12-1.4.3.jar:/usr/lib/hadoop-0.20/lib/xmlenc-0.52.jar
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/usr/lib/hadoop-0.20/lib/native/Linux-i386-32:/usr/lib/hbase/bin/../lib/native/Linux-i386-32
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.35-19-generic
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home
+17/03/08 03:42:13 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=localhost:2181 sessionTimeout=180000 watcher=hconnection
+17/03/08 03:42:13 INFO zookeeper.ClientCnxn: Opening socket connection to server localhost/127.0.0.1:2181
+17/03/08 03:42:13 INFO zookeeper.ClientCnxn: Socket connection established to localhost/127.0.0.1:2181, initiating session
+17/03/08 03:42:13 INFO zookeeper.ClientCnxn: Session establishment complete on server localhost/127.0.0.1:2181, sessionid = 0x15aada318650004, negotiated timeout = 40000
+17/03/08 03:42:13 DEBUG client.HConnectionManager$HConnectionImplementation: Lookedup root region location, connection=org.apache.hadoop.hbase.client.HConnectionManager$HConnectionImplementation@18488ef; hsa=ubuntu:45369
+17/03/08 03:42:13 DEBUG client.HConnectionManager$HConnectionImplementation: Cached location for .META.,,1.1028785192 is ubuntu:45369
+17/03/08 03:42:13 DEBUG client.HConnectionManager$HConnectionImplementation: The connection to hconnection-0x15aada318650004 has been closed.
+17/03/08 03:42:13 DEBUG client.MetaScanner: Scanning .META. starting at row=bulktab,,00000000000000 for max=10 rows
+17/03/08 03:42:13 DEBUG client.HConnectionManager$HConnectionImplementation: Cached location for bulktab,,1488972741363.de9bf13d306ef30928994ef546024d97. is ubuntu:45369
+17/03/08 03:42:13 DEBUG client.HConnectionManager$HConnectionImplementation: The connection to hconnection-0x15aada318650004 has been closed.
+17/03/08 03:42:13 INFO mapreduce.TableOutputFormat: Created table instance for bulktab
+17/03/08 03:42:13 INFO input.FileInputFormat: Total input paths to process : 1
+17/03/08 03:42:13 WARN snappy.LoadSnappy: Snappy native library is available
+17/03/08 03:42:13 INFO util.NativeCodeLoader: Loaded the native-hadoop library
+17/03/08 03:42:13 INFO snappy.LoadSnappy: Snappy native library loaded
+17/03/08 03:42:14 INFO mapred.JobClient: Running job: job_201703080302_0001
+17/03/08 03:42:15 INFO mapred.JobClient:  map 0% reduce 0%
+17/03/08 03:42:28 INFO mapred.JobClient:  map 100% reduce 0%
+17/03/08 03:42:30 INFO mapred.JobClient: Job complete: job_201703080302_0001
+17/03/08 03:42:30 INFO mapred.JobClient: Counters: 17
+17/03/08 03:42:30 INFO mapred.JobClient:   Job Counters 
+17/03/08 03:42:30 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=13493
+17/03/08 03:42:30 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+17/03/08 03:42:30 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+17/03/08 03:42:30 INFO mapred.JobClient:     Launched map tasks=1
+17/03/08 03:42:30 INFO mapred.JobClient:     Data-local map tasks=1
+17/03/08 03:42:30 INFO mapred.JobClient:     SLOTS_MILLIS_REDUCES=0
+17/03/08 03:42:30 INFO mapred.JobClient:   ImportTsv
+17/03/08 03:42:30 INFO mapred.JobClient:     Bad Lines=0
+17/03/08 03:42:30 INFO mapred.JobClient:   FileSystemCounters
+17/03/08 03:42:30 INFO mapred.JobClient:     HDFS_BYTES_READ=313
+17/03/08 03:42:30 INFO mapred.JobClient:     FILE_BYTES_WRITTEN=78225
+17/03/08 03:42:30 INFO mapred.JobClient:   Map-Reduce Framework
+17/03/08 03:42:30 INFO mapred.JobClient:     Map input records=11
+17/03/08 03:42:30 INFO mapred.JobClient:     Physical memory (bytes) snapshot=136347648
+17/03/08 03:42:30 INFO mapred.JobClient:     Spilled Records=0
+17/03/08 03:42:30 INFO mapred.JobClient:     CPU time spent (ms)=720
+17/03/08 03:42:30 INFO mapred.JobClient:     Total committed heap usage (bytes)=39911424
+17/03/08 03:42:30 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=458940416
+17/03/08 03:42:30 INFO mapred.JobClient:     Map output records=11
+17/03/08 03:42:30 INFO mapred.JobClient:     SPLIT_RAW_BYTES=104
+root@ubuntu:/home# 
+
+
+
+
+
+
+
+FROM HBASE SIDE
+---------------
+root@ubuntu:/usr/lib/hbase/bin# hbase shell
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 0.90.6-cdh3u5, r, Fri Oct  5 17:35:30 PDT 2012
+
+hbase(main):001:0> create 'bulktab','name','sal','year'
+0 row(s) in 1.3410 seconds
+--------------------------------
+BEFORE EXECUTING BULK LOAD COMMAND
+-----------------------------------
+hbase(main):002:0> scan 'bulktab'
+ROW                    COLUMN+CELL                                                  
+0 row(s) in 0.2360 seconds
+
+hbase(main):003:0>
+-----------------------------------
+AFTER EXECUTING BULK LOAD COMMAND
+----------------------------------
+hbase(main):001:0> scan 'bulktab'
+ROW                    COLUMN+CELL                                                  
+ 100                   column=name:, timestamp=1488973346549, value=RAM             
+ 100                   column=sal:, timestamp=1488973346549, value=12000            
+ 100                   column=year:, timestamp=1488973346549, value=1990            
+ 101                   column=name:, timestamp=1488973346549, value=RAJ             
+ 101                   column=sal:, timestamp=1488973346549, value=14000            
+ 101                   column=year:, timestamp=1488973346549, value=2000            
+ 102                   column=name:, timestamp=1488973346549, value=TAJ             
+ 102                   column=sal:, timestamp=1488973346549, value=16000            
+ 102                   column=year:, timestamp=1488973346549, value=2001            
+ 103                   column=name:, timestamp=1488973346549, value=ADI             
+ 103                   column=sal:, timestamp=1488973346549, value=18000            
+ 103                   column=year:, timestamp=1488973346549, value=2001            
+ 104                   column=name:, timestamp=1488973346549, value=JAJ             
+ 104                   column=sal:, timestamp=1488973346549, value=20000            
+ 104                   column=year:, timestamp=1488973346549, value=2002            
+ 105                   column=name:, timestamp=1488973346549, value=YOY             
+ 105                   column=sal:, timestamp=1488973346549, value=22000            
+ 105                   column=year:, timestamp=1488973346549, value=2003            
+ 106                   column=name:, timestamp=1488973346549, value=SID             
+ 106                   column=sal:, timestamp=1488973346549, value=24000            
+ 106                   column=year:, timestamp=1488973346549, value=2005            
+ 107                   column=name:, timestamp=1488973346549, value=SAI             
+ 107                   column=sal:, timestamp=1488973346549, value=25000            
+ 107                   column=year:, timestamp=1488973346549, value=2004            
+ 108                   column=name:, timestamp=1488973346549, value=SRI             
+ 108                   column=sal:, timestamp=1488973346549, value=26000            
+ 108                   column=year:, timestamp=1488973346549, value=2003            
+ 109                   column=name:, timestamp=1488973346549, value=JAI             
+ 109                   column=sal:, timestamp=1488973346549, value=28000            
+ 109                   column=year:, timestamp=1488973346549, value=2007            
+ 110                   column=name:, timestamp=1488973346549, value=PAI             
+ 110                   column=sal:, timestamp=1488973346549, value=30000            
+ 110                   column=year:, timestamp=1488973346549, value=2008            
+11 row(s) in 1.1510 seconds
+
+hbase(main):002:0> 
+
